@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url(resert.css);
+html{
+    font-family: font-family 'Raleway', sans-serif;
+}
+h1{
+    font-weight: 300;
+    font-size: 2em;
+}
+h2{
+    font-weight: 700;
+    font-size: 2em;
+}
+h3{
+    font-weight: 700;
+    font-size: 2em;
+}
+div{
+    border: 3px solid  red
+}
