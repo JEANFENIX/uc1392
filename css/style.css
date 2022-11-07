@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 @import url(resert.css);
 html{
+    margin-left:  30px;
     font-family: font-family 'Raleway', sans-serif;
 }
 h1{
@@ -37,4 +38,10 @@ div{
 
 .tabelinha th, td{
     padding:  10px 20px ;
+}
+input{
+    margin-bottom:  10px;
+}
+#btn-enviar{
+    margin-bottom: 20px;
 }

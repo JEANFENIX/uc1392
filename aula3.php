@@ -82,6 +82,13 @@ $pessoas = array(
     ' 63D23A '=> ([' Helen ', ' Maravilha '])
 );
 
+if (isset($_GET['enviar'])){ // se o u(DU)ário clicar no botão
+    $id_frm = $_GET['id'];
+    $nome_frm = $_GET['nome'];
+    $descri_frm = $_GET['descricao'];
+    $pessoas += [$id_frm => ([$nome_frm, $descri_frm])];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +98,22 @@ $pessoas = array(
         <link rel="stylesheet"  href="css/style.css">
     </head>
     <body>
+        <form action="#" method="get">
+        <label for="id">
+            Id
+            <input type="text" name="id" required>
+        </label><br>
+        <label for="nome">
+         Nome 
+         <input type="text" name="nome" required>
+        </label><br>
+        <label for="descricao">
+            descrição
+            <input type="text" name="descricao" required>
+        </label><br>
+        <button type="submit" name="enviar" id="btn-enviar">Enviar</button>
+        </form>
+
         <table class="tabelinha">
             <th>id</th>
             <th>nome</th>
