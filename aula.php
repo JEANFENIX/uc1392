@@ -1,4 +1,5 @@
 <?php
+    include "aula 2.php";
     $premio = 1547.90;
 ?>
 <!DOCTYPE html>
