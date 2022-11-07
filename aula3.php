@@ -73,4 +73,41 @@ for ($i=0; $i < 4; $i++){
     echo($nota[$i]);
     echo("<br>");
 }
+
+//declaração e uso matrizes
+$pessoas = array(
+    ' 98H47O '=> ([' Well ', ' Professor ']), 
+    ' 25P45F '=> ([' Nath','Linda']), 
+    ' 85U41R '=> ([' Ellen', ' Fofa ']), 
+    ' 63D23A '=> ([' Helen ', ' Maravilha '])
+);
+
 ?>
+
+<!DOCTYPE html>
+<html lang="pt_BR">
+    <head>
+        <!-- <meta http-equiv="refresh" content="1"> -->
+        <link rel="stylesheet"  href="css/style.css">
+    </head>
+    <body>
+        <table class="tabelinha">
+            <th>id</th>
+            <th>nome</th>
+            <th>descrição</th>
+            <tr>
+                <td>10Y96B</td>
+                <td>Nathalia</td>
+                <td>Baixinha</td>
+            </tr>
+            <?php
+               foreach($pessoas as $id => $nome){?>
+               <tr>
+               <td><?php echo($id);?></td>
+               <td><?php echo($nome[0]);?></td>
+               <td><?php echo($nome[1]);?></td>
+               </tr>
+             <?php } ?>
+        </table>
+    </body>
+</html>

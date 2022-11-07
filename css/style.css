@@ -18,3 +18,23 @@ h3{
 div{
     border: 3px solid  red
 }
+
+.container{
+    background-color:  lightsalmon;
+}
+
+#nome-empresa{
+    color:  aquamarine;
+}
+
+.tabelinha th, td{
+    border:  0.5px solid rgb(78, 78, 78);
+}
+
+.tabelinha{
+    border:  2px solid;
+}
+
+.tabelinha th, td{
+    padding:  10px 20px ;
+}
