@@ -1,47 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
-@import url(resert.css);
+@import url(reset.css);
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap%27');
+
 html{
-    margin-left:  30px;
-    font-family: font-family 'Raleway', sans-serif;
+    margin-left: 10px;
+    font-family: 'Courier New', Courier, monospace;
 }
 h1{
-    font-weight: 300;
+    font-weight: 700;
     font-size: 2em;
 }
+
 h2{
-    font-weight: 700;
-    font-size: 2em;
+    font-weight: 400;
+    font-size: 1.8em;
 }
+
 h3{
-    font-weight: 700;
-    font-size: 2em;
+    font-weight: 100;
+    font-size: 1.6em;
 }
 div{
-    border: 3px solid  red
+    border: 3px solid blue;
 }
 
 .container{
-    background-color:  lightsalmon;
+    background-color: lightslategray;
 }
 
 #nome-empresa{
-    color:  aquamarine;
+    color: aqua;
 }
 
 .tabelinha th, td{
-    border:  0.5px solid rgb(78, 78, 78);
+    border: 0.5px solid rgb(78, 78, 78);
 }
 
+.tabelinha th, td{
+    padding: 10px;
+}
 .tabelinha{
-    border:  2px solid;
+    border: 2px solid;
 }
-
-.tabelinha th, td{
-    padding:  10px 20px ;
+th{
+    font-weight: 700;
 }
 input{
-    margin-bottom:  10px;
+    margin-bottom: 10px;
 }
 #btn-enviar{
-    margin-bottom: 20px;
+    margin-bottom: 20px
 }
