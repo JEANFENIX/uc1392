@@ -4,15 +4,21 @@
 
 $parcelas = array();
 $coeficiente = 0.0;
-if(isset($_POST['CALCULAR']))
-    {
+if(isset($_POST['calcular']))
+{
     $capital = $_POST['capital'];
-    $taxa = $_POST['taxa'];
+    $taxa    = $_POST['taxa'];
     $parcela = $_POST['parcela'];
     $coeficiente = parcelar(floatval($taxa), intval($parcela));
-
-    $parcelas = ([$capital, $taxa, $parcela, $coeficiente*$capital]);
+    $data = date('d/m/Y');
+    $dias = 30;
+    for ($i=0; $i < $parcela; $i++) { 
+        $parcelas[$i] = [($i+1),($coeficiente*floatval($capital)),date($data,strtotime('+30days'))];    
+        $dias += 30; 
     }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +38,17 @@ if(isset($_POST['CALCULAR']))
     <button type="submit" name="calcular">Calcular</button>
 </form>
 <br><hr>
-<?php if (isset($parcela)){
-    ?>
-    <h3>Valor da parcela: R$ <?php echo $parcelas[3];?></h3>
-    <?php
-     }
-    ?>
+<?php if(count($parcelas)>0){?>
+        <h4>Valor da Capital: R$ <?php echo $capital; ?></h4>
+        <h4>Taxa de juro: <?php echo $taxa; ?> %</h4>
+        <h4>Parcelas: <?php echo $parcela; ?> meses</h4>
+    <?php 
+        foreach ($parcelas as $valores) {
+            ?>
+                <h4><?php echo($valores[0]." R$ ". strval($valores[1])." - ".strval($valores[2]));?></h4>
+            <?php
+        }
+    } ?>
+
 </body>
 </html>
