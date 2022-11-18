@@ -1,38 +1,78 @@
 <?php
-
 include 'conecta.php';
-
 // criando consulta SQL
-
-$consultaSql = "SELECT * FROM cliente order by nome, cpf asc";
-
-
+$consultaSql = "SELECT * FROM cliente where deleted is null order by nome, cpf asc";
+$consultaSqlArq = "SELECT * FORM cliente where deleted is not null order by nome, cod_cliente asc";
 
 // buscando e listando os dados da tabela (completa)
-
 $lista = $pdo->query($consultaSql);
-
-
+$listaArq = $pdo->query($consultaSqlArq);
 
 // separar em linhas
-
 $row = $lista->fetch();
-
-
-
-// retornando o númaru de linhas
-
+$rowArq = $listaArq->fetch();
+// separar em linhas
 $num_rows = $lista->rowCount();
 
-if(isset($_POST['enviar'])) // inserir
+// busca cliente por código
+$nome = "";
+$cpf = "";
+$cod = 0;
+if (isset($_GET['codedit']))
+
 {
+    $queryEdit = "SELECT * FROM cliente where cod_cliente=".$_GET['codedit'];
+    $cliente = $pdo->query($queryEdit)->fetch();
+    $cod  = $_GET['codedit'];
+    $nome  = $cliente['nome'];
+    $cpf = $cliente['cpf'];
+}
+// retornando o númaru de linhas
+// alter table cliente add deleted datetime null;
+
+// codigo para arquivar(excluir)
+if (isset($_GET['codarq']))
+{
+    $queryarq = "update cliente set deleted = null where cod_cliente=".$_GET['codres'];
+    $cliente = $pdo->query($queryArq)->fetch();
+    header('location: cliente.php');
+}
+
+// restaurar o cliente
+if (isset($_GET['codres']))
+{
+    $queryArq = "update cliente set deleted = null where cod_cliente=".$_GET['codres'];
+     $cliente = $pdo->query($queryArq)->fetch();
+     header('location: cliente.php');
+ }
+  // remover definitivamente (LGPD)
+  if (isset($_GET['codexc']))
+ {
+    $queryExc = "delete from cliente where cod_cliente=".$_GET['codexc'];
+     $cliente = $pdo->query($queryExc)->fetch();
+     header('location: cliente.php');
+ }
+
+if(isset($_POST['enviar'])) // inserir ou alterar
+{ // insere o cliente
     $nome = $_POST['nome'];
     $cpf = $_POST['cpf'];
-
     $consulta = "insert cliente (nome, cpf) values ('$nome','$cpf')";
     $resultado = $pdo->query($consulta);
     $_POST['enviar'] = null;
     header('location: cliente.php');
+}
+
+if(isset($_POST['alterar']))
+
+{
+  // Alterar os dados do cliente
+  $cod = $_POST['cod-cliente'];
+  $nome = $_POST['nome'];
+  $cpf = $_POST['cpf'];
+  $updateSql = "update cliente set nome = '$nome', cpf='$cpf' where cpd_cliente = $cod";
+  $resultado = $pdo->query($updateSql);
+  header('location: cliente.php');
 }
 
 ?>
@@ -67,23 +107,24 @@ if(isset($_POST['enviar'])) // inserir
                 <div hidden>
                     <label for="cod-cliente"> 
                         Código
-                        <input type="text" name="cod-cliente">
+                        <input type="text" name="cod-cliente" value="$cod">
                     </label>
                 </div>
                 <div>
                     <label for="nome">
                     Nome 
-                    <input type="text" name="nome" required>
+                    <input type="text" name="nome" required value="<?php echo $nome;?>">
                     </label>
                 </div>
                 <div>
                     <label for="cpf">
                         CPF 
-                        <input type="number" name="cpf" required>
+                        <input type="number" name="cpf" required value="<?php echo $cpf;?>">
                     </label>
                 </div>
                 <div>
-                    <button type="submit" name="enviar" id="btn-enviar">Enviar</button>
+                 <!-- <-- usamos o if ternário para trocar texto do botão --> 
+                    <button type="submit" name="enviar"><?php echo $cod<1?'Enviar': 'Alterar';?></button>
                 </div>
             </form>
         </section>
@@ -97,6 +138,8 @@ if(isset($_POST['enviar'])) // inserir
 
             <th>CPF</th>
 
+            <th colspan="2">Ações</th>
+
         </thead>
 
         <tbody>
@@ -105,15 +148,18 @@ if(isset($_POST['enviar'])) // inserir
 
                 <tr>
 
-                    <td hidden><?php echo $row['cod_cliente'];?></td>
+                    <td hidden><?php echo $rowArq['cod_cliente'];?></td>
 
-                    <td><?php echo $row['nome'];?></td>
+                    <td><?php echo $rowArq['nome'];?></td>
 
-                    <td><?php echo $row['cpf'];?></td>
+                    <td><?php echo $rowArq['cpf'];?></td>
+
+                    <td><a href="cliente.php?codedit=<?php echo $rowArq['cod_cliente'];?>">Editar</a></td>
+                    <td><a href="cliente.php?codarq=<?php echo $rowArq['cod_cliente'];?>">Arquivar</a></td>
 
                 </tr>
 
-            <?php } while ($row = $lista->fetch())?>
+            <?php } while ($rowArq = $listaArq->fetch())?>
 
         </tbody>
 

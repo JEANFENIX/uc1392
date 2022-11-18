@@ -64,7 +64,7 @@ $num_linhas = $lista->rowCount();
             <div>
                 <label for="admissao">
                 Admissão
-                <input type="number" name="admissao" required>
+                <input type="text" name="admissao" required>
                 </label>
             </div>
             <div>
